@@ -1,0 +1,384 @@
+/* ==========================================
+   글로벌 스타일 및 모던 테마 변수 정의
+   ========================================== */
+:root {
+    /* 라이트 모드 (기본값) 색상 테마 */
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --accent-color: #6366f1; /* 은은한 퍼플 블루 */
+    --accent-hover: #4f46e5;
+    --border-color: rgba(226, 232, 240, 0.8);
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --glass-blur: blur(12px);
+    
+    /* 기능성 색상 */
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --checkbox-bg: #edf2f7;
+    
+    /* 애니메이션 및 트랜지션 기본 시간 */
+    --transition-speed: 0.3s;
+    --transition-curve: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 다크 모드 활성화 시 적용되는 색상 변수 */
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    --card-bg: rgba(30, 41, 59, 0.75);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-color: #818cf8; /* 밝고 선명한 네온 퍼플 */
+    --accent-hover: #a5b4fc;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    
+    --checkbox-bg: #334155;
+}
+
+/* 기본 브라우저 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 패딩과 테두리를 너비에 포함시킴 */
+}
+
+body {
+    font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+    /* 테마 전환 시 모든 스타일 속성이 부드럽게 변하도록 트랜지션 적용 */
+    transition: background var(--transition-speed) var(--transition-curve), 
+                color var(--transition-speed) var(--transition-curve);
+}
+
+/* ==========================================
+   레이아웃 및 컨테이너 스타일링
+   ========================================== */
+.app-container {
+    width: 100%;
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 헤더 영역 */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.app-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(to right, var(--accent-color), #ec4899);
+    -webkit-background-clip: text; /* 텍스트 내부에만 그라데이션을 채움 */
+    -webkit-text-fill-color: transparent;
+}
+
+/* 다크모드 토글 버튼 */
+.theme-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    transition: all var(--transition-speed) var(--transition-curve);
+}
+
+.theme-btn:hover {
+    transform: translateY(-2px) rotate(15deg); /* 호버 시 약간 위로 뜨며 기우는 위트 있는 모션 */
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.theme-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================
+   투두 카드 및 입력 폼 스타일링
+   ========================================== */
+.todo-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    transition: background var(--transition-speed) var(--transition-curve),
+                border-color var(--transition-speed) var(--transition-curve),
+                box-shadow var(--transition-speed) var(--transition-curve);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 할 일 입력 영역 */
+.todo-form {
+    width: 100%;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+#todo-input {
+    width: 100%;
+    padding: 16px 60px 16px 20px; /* 우측에 추가 버튼 공간 마련 */
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--checkbox-bg);
+    border: 2px solid transparent;
+    border-radius: 16px;
+    outline: none;
+    transition: all var(--transition-speed) var(--transition-curve);
+}
+
+/* 입력 필드에 마우스를 대거나 포커스(선택) 되었을 때 선명한 외곽선 표시 */
+#todo-input:hover {
+    background: var(--border-color);
+}
+
+#todo-input:focus {
+    background: var(--card-bg);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+}
+
+/* 할 일 추가 버튼 */
+.add-btn {
+    position: absolute;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--accent-color);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-speed) var(--transition-curve);
+}
+
+.add-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+}
+
+.add-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================
+   투두 목록 (List Items) 스타일링
+   ========================================== */
+.todo-list {
+    list-style: none;
+    max-height: 380px;
+    overflow-y: auto; /* 리스트가 길어질 경우 내부 스크롤바 활성화 */
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 스크롤바 디자인 커스텀 */
+.todo-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}
+
+.todo-list::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* 할 일 개별 항목 스타일 */
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    transition: all 0.25s var(--transition-curve);
+    animation: slideIn 0.3s var(--transition-curve) forwards; /* 항목 추가 시 부드러운 애니메이션 */
+}
+
+.todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow-color);
+    border-color: var(--accent-color);
+}
+
+/* 할 일 항목 추가 시 부드럽게 나타나는 애니메이션 정의 */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 할 일 텍스트 및 체크박스 묶음 */
+.todo-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    cursor: pointer;
+}
+
+/* 커스텀 체크박스 외형 디자인 */
+.custom-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%; /* 완벽한 원형 생성 */
+    border: 2px solid var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: transparent;
+    transition: all var(--transition-speed) var(--transition-curve);
+    background: var(--checkbox-bg);
+    flex-shrink: 0; /* 동적 텍스트 길이에 찌그러지지 않도록 방지 */
+}
+
+/* 할 일 텍스트 */
+.todo-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1.4;
+    transition: all var(--transition-speed) var(--transition-curve);
+    word-break: break-all; /* 긴 영문 단어나 링크도 영역 밖으로 깨지지 않게 방지 */
+}
+
+/* 완료된 상태 스타일 정의 */
+.todo-item.completed {
+    background: rgba(241, 245, 249, 0.4);
+}
+
+[data-theme="dark"] .todo-item.completed {
+    background: rgba(30, 41, 59, 0.3);
+}
+
+/* 완료 시 체크박스 스타일 변화 */
+.todo-item.completed .custom-checkbox {
+    background: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+}
+
+/* 완료 시 텍스트 스타일 취소선 및 흐릿함 효과 적용 */
+.todo-item.completed .todo-text {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    opacity: 0.65;
+}
+
+/* 삭제 버튼 스타일 */
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-speed) var(--transition-curve);
+    opacity: 0.4; /* 평소에는 튀지 않게 반투명 처리 */
+}
+
+/* 마우스를 아이템 위에 올렸을 때 삭제 버튼 활성화 */
+.todo-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    color: var(--danger-color);
+    background: rgba(239, 68, 68, 0.1);
+    transform: scale(1.1) rotate(8deg);
+}
+
+.delete-btn:active {
+    transform: scale(0.9);
+}
+
+/* ==========================================
+   푸터 및 통계 영역 스타일링
+   ========================================== */
+.todo-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.items-left {
+    font-weight: 500;
+}
+
+.clear-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: color var(--transition-speed) var(--transition-curve);
+}
+
+.clear-btn:hover {
+    color: var(--danger-color);
+    text-decoration: underline;
+}

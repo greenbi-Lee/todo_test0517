@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium To-Do List</title>
+    <!-- Google Fonts:Outfit 폰트 적용 (모던하고 둥근 형태의 서체) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 아이콘 적용 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 외부 CSS 스타일시트 연결 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 테마 토글 버튼 및 헤더 영역 -->
+        <header class="app-header">
+            <h1 class="app-title">TaskFlow</h1>
+            <button id="theme-toggle-btn" class="theme-btn" aria-label="테마 전환 버튼">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <!-- 투두 입력 카드 영역 -->
+        <main class="todo-card">
+            <form id="todo-form" class="todo-form">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="todo-input" 
+                        placeholder="오늘 해야 할 일을 입력하세요..." 
+                        maxlength="60"
+                        required
+                        autocomplete="off"
+                    >
+                    <button type="submit" id="add-btn" class="add-btn" aria-label="추가 버튼">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- 투두 목록 영역 -->
+            <ul id="todo-list" class="todo-list">
+                <!-- script.js에서 동적으로 할 일 항목들이 추가됩니다 -->
+            </ul>
+
+            <!-- 하단 통계 및 필터 영역 -->
+            <footer class="todo-footer">
+                <span id="items-left" class="items-left">완료되지 않은 항목: 0개</span>
+                <button id="clear-completed-btn" class="clear-btn">완료 항목 삭제</button>
+            </footer>
+        </main>
+    </div>
+
+    <!-- 외부 자바스크립트 연결 -->
+    <script src="script.js"></script>
+</body>
+</html>
